@@ -1,5 +1,11 @@
+CODE_CHANGES = getGitChanges()
+
 pipeline {
     agent any
+    parameters {
+        choice(name: 'version', choices: ['1.1','1.2','1.3'], description: '')
+        booleanParam(name: 'executeTest', defaultValueL true, description: '')
+    }
     stages {
         stage('build') {
             steps {
@@ -7,6 +13,11 @@ pipeline {
             }
         }
         stage('test') {
+            when {
+                expression{
+                    params.executeTest
+                }
+            }
             steps {
                 echo 'testing app'
             }
@@ -14,7 +25,8 @@ pipeline {
         stage('deploy') {
             steps {
                 echo 'deploying app'
+                echo "delpoying version ${params.version}"
             }
         }
-    }       
+    }
 }
