@@ -6,25 +6,15 @@ pipeline {
                 echo 'building app'
             }
         }
-    }
-
-    stages {
         stage('test') {
             steps {
                 echo 'testing app'
             }
         }
-    }
-
-    stages {
         stage('deploy') {
             steps {
                 echo 'deploying app'
             }
         }
-    }
-}
-
-node {
-    // groovy script
+    }       
 }
